@@ -1,7 +1,13 @@
 import pandas
 #loding csv using api and request modul
 #looding csv file
+
+
+#deep-copy-> copy all the contat in the last csv file to ather adress
+#note to myself- cvs file is huge somthing and its not a good place complexity
+#it goot to useing jupiter nootbook when i have somthing that take a long time to upload
 data = pandas.read_csv("Social_Network_Ads.csv")
+data_01 = data.copy(deep=True)#deep copy
 data_try = pandas.read_csv("Social_Network_Ads.csv")
 data_ = pandas.read_csv("Social_Network_Ads.csv")
 data_row = pandas.read_csv("Social_Network_Ads.csv")
@@ -20,7 +26,7 @@ print(gender)
 gender_row = data[data.Gender == "Male"]
 #a spsific row, sfisify by a unic value
 age_data = data.Age
-lower_ages = data[age_data <= 30]
+lower_ages = data[age_data <= 30]#returns a new object , mot of the actions in panads doing it
 #we can do it with all of the  if stetment and get this row data, we can sfisify colunm into it
 
 #add row or col
