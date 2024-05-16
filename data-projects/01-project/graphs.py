@@ -25,15 +25,6 @@ plt.title('Bar Chart: Average Salaries Across Different Age Groups')
 plt.xticks(rotation=45)
 plt.show()
 
-# Point plot
-plt.figure(figsize=(8, 5))
-plt.plot(age_groups, average_salaries, marker='o')
-plt.xlabel('Age Group')
-plt.ylabel('Average Salary')
-plt.title('Point Plot: Average Salaries Across Different Age Groups')
-plt.xticks(rotation=45)
-plt.show()
-
 # Line plot
 plt.figure(figsize=(8, 5))
 plt.plot(age_groups, average_salaries, marker='o', linestyle='-')
@@ -43,31 +34,9 @@ plt.title('Line Plot: Average Salaries Across Different Age Groups')
 plt.xticks(rotation=45)
 plt.show()
 
-# Scatter plot
-plt.figure(figsize=(8, 5))
-plt.scatter(age_groups, average_salaries)
-plt.xlabel('Age Group')
-plt.ylabel('Average Salary')
-plt.title('Scatter Plot: Average Salaries Across Different Age Groups')
-plt.xticks(rotation=45)
-plt.show()
 
 
 salaries_by_age_2 = [10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000]
-
-# Plotting the scatter plot
-plt.figure(figsize=(8, 5))
-for i, salary in enumerate(salaries_by_age_2):
-    plt.scatter([i] * len(age_groups), [salary] * len(age_groups))
-
-plt.xlabel('Age Group')
-plt.ylabel('Salary')
-plt.title('Scatter Plot: Salaries Across Different Age Groups')
-plt.xticks(range(len(age_groups)), age_groups)
-plt.yticks(range(10000, 100001, 10000))  # Setting y-ticks from 10,000 to 100,000 with an interval of 10,000
-plt.grid(True)
-plt.show()
-
 
 # graphs about perches vs each relevant column
 
