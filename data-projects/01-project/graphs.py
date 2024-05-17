@@ -70,3 +70,40 @@ plt.pie(pie_data['Percentage Purchasing'], labels=pie_data['Age Group'], autopct
 plt.title('Percentage of People Purchasing by Age Group')
 plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 plt.show()
+
+# Calculate percentages
+male_purch = len(df[(df['Gender'] == 'Male') & (df['Purchased'] == 1)])
+male_not_purch = len(df[(df['Gender'] == 'Male') & (df['Purchased'] == 0)])
+female_purch = len(df[(df['Gender'] == 'Female') & (df['Purchased'] == 1)])
+female_not_purch = len(df[(df['Gender'] == 'Female') & (df['Purchased'] == 0)])
+
+total_purchases = male_purch + female_purch
+total_individuals = len(df)
+
+percentage_male_purch = (male_purch / total_purchases) * 100
+percentage_female_purch = (female_purch / total_purchases) * 100
+percentage_male_not_purch = (male_not_purch / total_individuals) * 100
+percentage_female_not_purch = (female_not_purch / total_individuals) * 100
+
+# Data for pie chart
+labels = ['Male Purchases', 'Female Purchases', 'Male Non-Purchases', 'Female Non-Purchases']
+sizes = [percentage_male_purch, percentage_female_purch, percentage_male_not_purch, percentage_female_not_purch]
+colors = ['blue', 'pink', 'lightblue', 'lightpink']
+explode = (0.1, 0, 0, 0)  # explode 1st slice (Male Purchases)
+
+# Plot pie chart
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+plt.axis('equal')
+plt.title('Percentage of Purchases by Gender')
+
+# Plot bar chart
+plt.subplot(1, 2, 2)
+plt.bar(['Male', 'Female'], [male_purch, female_purch], color=['blue', 'pink'])
+plt.title('Number of Purchases by Gender')
+plt.xlabel('Gender')
+plt.ylabel('Number of Purchases')
+
+plt.tight_layout()
+plt.show()
