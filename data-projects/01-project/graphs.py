@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+
 
 data = pd.read_csv('Social_Network_Ads.csv')
 ages = data.Age
@@ -105,5 +107,52 @@ plt.title('Number of Purchases by Gender')
 plt.xlabel('Gender')
 plt.ylabel('Number of Purchases')
 
+plt.tight_layout()
+plt.show()
+
+df['SalaryInterval'] = pd.cut(df['EstimatedSalary'], bins=np.linspace(df['EstimatedSalary'].min(), df['EstimatedSalary'].max(), 10))
+
+# Group by SalaryInterval and Purchased, then count the occurrences
+grouped = df.groupby(['SalaryInterval', 'Purchased'], observed=False).size().unstack(fill_value=0)
+
+# Calculate the percentage of purchases within each salary interval
+purchase_percentage = (grouped[1] / grouped.sum(axis=1)) * 100
+
+# Fill NaN values with 0 (if there are intervals with no purchases)
+purchase_percentage = purchase_percentage.fillna(0)
+
+# Format the salary intervals for better readability
+formatted_intervals = [f'{int(interval.left/1000)}k-{int(interval.right/1000)}k' for interval in purchase_percentage.index]
+
+# Plot the bar chart
+plt.figure(figsize=(12, 6))
+plt.bar(formatted_intervals, purchase_percentage, color='skyblue')
+plt.xlabel('Salary Intervals')
+plt.ylabel('Percentage of Purchases')
+plt.title('Percentage of Purchases by Salary Intervals')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+# Define salary intervals and add as a new column
+df['SalaryInterval'] = pd.cut(df['EstimatedSalary'], bins=np.linspace(df['EstimatedSalary'].min(), df['EstimatedSalary'].max(), 10))
+
+# Group by SalaryInterval and Purchased, then count the occurrences
+grouped = df.groupby(['SalaryInterval', 'Purchased'], observed=False).size().unstack(fill_value=0)
+
+# Calculate the percentage of purchases within each salary interval
+purchase_percentage = (grouped[1] / grouped.sum(axis=1)) * 100
+
+# Fill NaN values with 0 (if there are intervals with no purchases)
+purchase_percentage = purchase_percentage.fillna(0)
+
+# Format the salary intervals for better readability
+formatted_intervals = [f'{int(interval.left/1000)}k-{int(interval.right/1000)}k' for interval in purchase_percentage.index]
+
+# Plot the pie chart
+plt.figure(figsize=(10, 8))
+plt.pie(purchase_percentage, labels=formatted_intervals, autopct='%1.1f%%', startangle=140, colors=plt.cm.Paired(range(len(formatted_intervals))))
+plt.title('Percentage of Purchases by Salary Intervals')
+plt.axis('equal')  # Equal aspect ratio ensures the pie chart is circular.
 plt.tight_layout()
 plt.show()
